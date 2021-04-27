@@ -1,4 +1,4 @@
-package com.everis.logback_example_project;
+package com.everis.logback;
 
 import java.util.Scanner;
 
