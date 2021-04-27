@@ -1,0 +1,66 @@
+<configuration>
+
+	<!-- VARIABLE ASOCIADA A LA FECHA -->
+	<timestamp key="logDateVar" datePattern="dd-MM-yyyy" />
+
+	<!-- ROLLINGFILEAPPENDER -->
+	<appender name="DesafioLogback"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<!-- NOMBRE DEL FICHERO -->
+		<file>C://dev//logs//elb1DCFA_DesafioLogback_LoggerDebug-${logDateVar}.log
+		</file>
+
+		<!-- POLÍTICA DE GESTION DEL FICHERO -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>C://dev//logs//elb1DCFA_DesafioLogback_LoggerDebug-${logDateVar}.%i.logDual.zip
+			</fileNamePattern>
+
+			<!-- NUMERO DE FICHEROS (TROCEADOS) -->
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<!-- FRECUENCIA POLITICA -->
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50KB</maxFileSize>
+		</triggeringPolicy>
+
+		<!-- FORMATO TRAZA -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%method]
+				- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- APPENDER INFO -->
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>C://dev//logs//elb1DCFA_DesafioLogback_LoggerInfo-${logDateVar}.log
+		</file>
+
+		<!-- POLÍTICA DE GESTION DEL FICHERO -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>C://dev//logs//elb1DCFA_DesafioLogback_LoggerInfo-${logDateVar}.%i.logDual.zip
+			</fileNamePattern>
+		</rollingPolicy>
+
+		<!-- FORMATO TRAZA -->
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- LOGGER ROOT -->
+	<root level="debug">
+		<appender-ref ref="DesafioLogback" />
+	</root>
+
+	<logger name="Info" additivity="true" level="info">
+		<appender-ref ref="FILE" />
+	</logger>
+
+</configuration>
